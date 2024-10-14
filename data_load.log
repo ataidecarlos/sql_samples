@@ -1,0 +1,55 @@
+Environment:
+    Hyperscale, 2 vCores
+    74 million rows
+    Tables are indexed on batch_id
+
+
+
+Generating 1 million rows with random values (including creating CSV file)
+batch_id is the only non-random value, it is auto-incremental for every 1 million row
+- Total time (generation + csv/insertion): 141.2165 seconds
+
+Switching a partition
+- EXECUTE dbo.usp_switch_partition 'user_data', 'user_data_cleanup', 1
+- Total execution time: 00:00:00.178
+
+Deleting a partition
+ - EXECUTE dbo.usp_delete_table_partition 'user_data', 1
+ - Total execution time: 00:00:09.476
+
+ 
+
+
+Pre-existing partition, for batch_id 1010
+Batch ID: 1010
+Time taken to generate random arrays: 0.21 seconds
+Time taken to create DataFrame: 0.05 seconds
+Time taken to insert DataFrame to CSV: 28.46 seconds
+Time taken to insert DataFrame to SQL: 100.98 seconds
+Batch ID: 1011
+Time taken to insert DataFrame to SQL: 129.74 seconds
+Batch ID: 1012
+Time taken to insert DataFrame to SQL: 101.64 seconds
+Batch ID: 1013
+Time taken to insert DataFrame to SQL: 102.05 seconds
+Batch ID: 1014
+Time taken to insert DataFrame to SQL: 104.65 seconds
+Batch ID: 1015
+Time taken to insert DataFrame to SQL: 105.20 seconds
+
+
+
+
+No specific partition
+Batch ID: 2020
+Time taken to insert DataFrame to SQL: 99.22 seconds
+Batch ID: 2021
+Time taken to insert DataFrame to SQL: 103.46 seconds
+Batch ID: 2022
+Time taken to insert DataFrame to SQL: 103.75 seconds
+Batch ID: 2023
+Time taken to insert DataFrame to SQL: 100.00 seconds
+Batch ID: 2024
+Time taken to insert DataFrame to SQL: 99.82 seconds
+Batch ID: 2025
+Time taken to insert DataFrame to SQL: 105.46 seconds
