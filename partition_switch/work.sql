@@ -1,3 +1,20 @@
+-- Examples of using the stored procedures
+EXECUTE dbo.usp_create_table_partition 'user_data', 1;
+EXECUTE dbo.usp_create_table_partition 'user_data', 2;
+EXECUTE dbo.usp_create_table_partition 'user_data', 3;
+
+EXECUTE dbo.usp_switch_partition 'user_data', 'user_data_cleanup', 1;
+
+EXECUTE dbo.usp_delete_table_partition 'user_data', 1;
+
+
+
+-- Create aligned indexes by specifiying the partition scheme
+CREATE INDEX idx_batch_id ON user_data(batch_id) on ps_batch_id (batch_id)
+
+
+
+
 
 -- Get the partition function, partition number, boundary value, and row count for each partition in the given table
 SELECT TOP 100
@@ -18,6 +35,8 @@ WHERE i.object_id = OBJECT_ID('user_data')
     --AND prv.value >= 1000
 ORDER BY p.partition_number;
 
+
+
 -- More expensive than the previous query, but it returns data from the user table, making it easier to visualize the values/partition numbers
 SELECT
     max(batch_id) as batch_id,
@@ -26,18 +45,3 @@ SELECT
 FROM user_data
 WHERE batch_id = 33
 GROUP BY $PARTITION.pf_batch_id(batch_id)
-
-
-
--- Create an aligned index on the batch_id column
-CREATE INDEX idx_batch_id ON user_data(batch_id) on ps_batch_id (batch_id)
-
-
--- Samples
-EXECUTE dbo.usp_create_table_partition 'user_data', 1;
-EXECUTE dbo.usp_create_table_partition 'user_data', 2;
-EXECUTE dbo.usp_create_table_partition 'user_data', 3;
-
-EXECUTE dbo.usp_switch_partition 'user_data', 'user_data_cleanup', 1;
-
-EXECUTE dbo.usp_delete_table_partition 'user_data', 1;

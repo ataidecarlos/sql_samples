@@ -73,4 +73,13 @@ Because this process is triggered from Azure Data Factory, I've created stored p
 | 3   | 00:00:00.066      | 00:00:00.622              | 00:00:16.571 | 00:00:18.445 |
 
 
+&nbsp;
 
+&nbsp;
+
+## SQL Files
+
+- [usp_create_table_partition.sql](usp_create_table_partition.sql): Script to create a new partition for the specified batch_id.
+- [usp_switch_partition.sql](usp_switch_partition.sql): Script to switch the partition from the source table to the target table.
+- [usp_delete_partition.sql](usp_delete_partition.sql): Script to delete the specified partition.
+- [usp_truncate_table.sql](usp_truncate_table.sql): Script to truncate the target table.
